@@ -22,14 +22,20 @@ const DiaryInput: React.FC<DiaryInputProps> = ({
   isLoading 
 }) => {
   return (
-    <div className="flex flex-col min-h-[400px]">
+    <div className="flex flex-col h-full">
+      <style>{`
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+        }
+      `}</style>
       <div className="flex flex-col md:flex-row border-b border-[#E9E9E7] dark:border-[#2F2F2F]">
         <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-[#E9E9E7] dark:border-[#2F2F2F]">
             <input 
                 type="date" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full p-4 bg-transparent outline-none text-[#37352F] dark:text-[#D4D4D4] font-mono text-sm"
+                className="w-full p-4 bg-transparent outline-none text-[#37352F] dark:text-[#D4D4D4] font-sans text-sm tracking-wide"
             />
         </div>
         <div className="md:w-2/3">
@@ -43,15 +49,15 @@ const DiaryInput: React.FC<DiaryInputProps> = ({
         </div>
       </div>
       
-      <div className="flex-grow relative">
+      <div className="relative min-h-[400px]">
         <textarea
-            className="w-full h-full p-6 bg-transparent outline-none resize-none font-sans text-lg leading-relaxed text-[#37352F] dark:text-[#D4D4D4] placeholder-[#9B9B9B] dark:placeholder-[#5A5A5A] custom-scrollbar"
+            className="w-full h-full p-6 bg-transparent outline-none resize-none font-sans text-lg leading-relaxed text-[#37352F] dark:text-[#D4D4D4] placeholder-[#9B9B9B] dark:placeholder-[#5A5A5A] custom-scrollbar absolute inset-0"
             placeholder="Write your story..."
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={isLoading}
         />
-        <div className="absolute bottom-4 right-4 text-xs text-[#9B9B9B] dark:text-[#5A5A5A]">
+        <div className="absolute bottom-4 right-4 text-xs text-[#9B9B9B] dark:text-[#5A5A5A] pointer-events-none">
           {value.length} characters
         </div>
       </div>

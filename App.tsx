@@ -52,7 +52,7 @@ const App: React.FC = () => {
         
         {/* Header Section */}
         <div className="mb-12 text-center">
-            <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#37352F] dark:text-[#E3E3E3]">Daily Diary</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-[#37352F] dark:text-[#E3E3E3]">Daily Diary</h1>
             <p className="text-[#787774] dark:text-[#9B9B9B]">
                 {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </p>
