@@ -57,7 +57,7 @@ export const analyzeDiaryEntry = async (diaryText: string): Promise<string> => {
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-pro',
+      model: 'gemini-2.5-lite',
       contents: diaryText,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
