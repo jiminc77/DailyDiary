@@ -53,5 +53,14 @@ export const diaryService = {
 
     if (error) throw error;
     return data as Pick<DiaryEntry, 'id' | 'date' | 'title'>[];
+  },
+
+  async deleteDiary(id: string) {
+    const { error } = await supabase
+      .from('diaries')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
   }
 };
