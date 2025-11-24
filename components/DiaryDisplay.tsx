@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 
 interface DiaryDisplayProps {
+  title?: string;
   content: string;
   feedback?: string[];
 }
 
-const DiaryDisplay: React.FC<DiaryDisplayProps> = ({ content, feedback = [] }) => {
+const DiaryDisplay: React.FC<DiaryDisplayProps> = ({ title, content, feedback = [] }) => {
   
   // Extract original phrases from feedback
   const phrasesToHighlight = useMemo(() => {
@@ -55,6 +56,12 @@ const DiaryDisplay: React.FC<DiaryDisplayProps> = ({ content, feedback = [] }) =
 
   return (
     <section className="space-y-4 animate-fade-in">
+      {title && (
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-[#37352F] dark:text-[#E3E3E3]">{title}</h2>
+        </div>
+      )}
+      
       <div className="border-b border-slate-200 dark:border-slate-700 pb-2 mb-6">
         <h3 className="text-xl font-bold text-[#396A84] dark:text-[#5DA8C9]">
           Original Version

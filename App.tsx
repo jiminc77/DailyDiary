@@ -214,7 +214,7 @@ const DiaryApp: React.FC = () => {
             {/* Input or Read-Only Display Section */}
             {result ? (
                  <div className="animate-fade-in">
-                    <DiaryDisplay content={inputText} feedback={parsedFeedback} />
+                    <DiaryDisplay title={title} content={inputText} feedback={parsedFeedback} />
                  </div>
             ) : (
                 <div className="bg-white dark:bg-[#202020] rounded-xl shadow-sm border border-[#E9E9E7] dark:border-[#2F2F2F] p-1 transition-all duration-500 ease-in-out">

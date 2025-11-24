@@ -100,7 +100,10 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
                     
                     const correctionEndIdx = rest.indexOf('(');
                     const correctionRaw = correctionEndIdx !== -1 ? rest.substring(0, correctionEndIdx).trim() : rest;
-                    const explanationRaw = correctionEndIdx !== -1 ? rest.substring(correctionEndIdx).replace(/[()]/g, '').trim() : '';
+                    let explanationRaw = correctionEndIdx !== -1 ? rest.substring(correctionEndIdx).replace(/[()]/g, '').trim() : '';
+                    
+                    // Remove "(설명:" or "설명:" prefix if present
+                    explanationRaw = explanationRaw.replace(/^설명:\s*/i, '');
 
                     const original = originalRaw.replace(/\*\*/g, '');
                     const correction = correctionRaw.replace(/\*\*/g, '');
