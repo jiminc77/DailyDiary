@@ -22,14 +22,14 @@ const DiaryInput: React.FC<DiaryInputProps> = ({
   isLoading 
 }) => {
   return (
-    <div className="h-full flex flex-col space-y-4">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="md:w-1/3">
+    <div className="flex flex-col min-h-[400px]">
+      <div className="flex flex-col md:flex-row border-b border-[#E9E9E7] dark:border-[#2F2F2F]">
+        <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-[#E9E9E7] dark:border-[#2F2F2F]">
             <input 
                 type="date" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full p-2 bg-transparent border-b border-slate-200 dark:border-slate-700 focus:border-[#396A84] dark:focus:border-[#5DA8C9] outline-none text-slate-600 dark:text-slate-400 font-mono text-sm transition-colors"
+                className="w-full p-4 bg-transparent outline-none text-[#37352F] dark:text-[#D4D4D4] font-mono text-sm"
             />
         </div>
         <div className="md:w-2/3">
@@ -37,37 +37,50 @@ const DiaryInput: React.FC<DiaryInputProps> = ({
                 type="text" 
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title"
-                className="w-full p-2 bg-transparent border-b border-slate-200 dark:border-slate-700 focus:border-[#396A84] dark:focus:border-[#5DA8C9] outline-none text-slate-800 dark:text-slate-200 font-medium placeholder-slate-300 dark:placeholder-slate-600 transition-colors"
+                placeholder="Untitled"
+                className="w-full p-4 bg-transparent outline-none text-[#37352F] dark:text-[#D4D4D4] font-semibold placeholder-[#9B9B9B] dark:placeholder-[#5A5A5A]"
             />
         </div>
       </div>
       
       <div className="flex-grow relative">
         <textarea
-            className="w-full h-full p-4 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-[#396A84] dark:focus:border-[#5DA8C9] focus:ring-1 focus:ring-[#396A84] dark:focus:ring-[#5DA8C9] transition-all resize-none outline-none font-sans text-lg leading-relaxed text-slate-800 dark:text-slate-200 placeholder-slate-300 dark:placeholder-slate-600 custom-scrollbar"
+            className="w-full h-full p-6 bg-transparent outline-none resize-none font-sans text-lg leading-relaxed text-[#37352F] dark:text-[#D4D4D4] placeholder-[#9B9B9B] dark:placeholder-[#5A5A5A] custom-scrollbar"
             placeholder="Write your story..."
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={isLoading}
         />
-        <div className="absolute bottom-4 right-4 text-xs text-slate-300 dark:text-slate-600">
-          {value.length}
+        <div className="absolute bottom-4 right-4 text-xs text-[#9B9B9B] dark:text-[#5A5A5A]">
+          {value.length} characters
         </div>
       </div>
 
-      <div className="flex justify-end pt-2">
+      <div className="p-4 border-t border-[#E9E9E7] dark:border-[#2F2F2F] flex justify-end">
         <button
           onClick={onSubmit}
           disabled={isLoading || value.trim().length === 0}
           className={`
-            px-8 py-3 rounded text-sm font-semibold tracking-wide transition-all
+            px-4 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-2
             ${isLoading || value.trim().length === 0
-              ? 'bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed'
-              : 'bg-[#396A84] hover:bg-[#2c5267] dark:bg-[#5DA8C9] dark:hover:bg-[#4a8ea6] text-white'}
+              ? 'bg-gray-100 dark:bg-[#2F2F2F] text-gray-400 dark:text-gray-600 cursor-not-allowed'
+              : 'bg-black dark:bg-white text-white dark:text-black hover:opacity-80'}
           `}
         >
-          {isLoading ? 'Correcting...' : 'Correct with AI'}
+          {isLoading ? (
+             <>
+               <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+               </svg>
+               <span>Processing...</span>
+             </>
+          ) : (
+             <>
+               <span>Correct with AI</span>
+               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+             </>
+          )}
         </button>
       </div>
     </div>
