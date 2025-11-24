@@ -13,6 +13,7 @@
     "types": [
       "node"
     ],
+    "include": ["src", "vite-env.d.ts"],
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",

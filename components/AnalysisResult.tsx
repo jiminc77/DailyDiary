@@ -26,24 +26,25 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
     };
 
     // 1. Native Version
-    // Look for "Native Version" header, take content until "문법" or "Grammar" or next header
+    // Look for "Native Version" header
     let nativeText = extractSection(/###.*?Native Version.*?\n/, /###/);
-    // Remove blockquotes (>) if present
     nativeText = nativeText.replace(/^>\s*/gm, '').trim();
     result.nativeVersion = nativeText;
 
     // 2. Feedback
-    const feedbackText = extractSection(/###.*?문법.*?/, /###/);
+    // Look for "Grammar & Feedback" or just "Feedback"
+    const feedbackText = extractSection(/###.*?(Grammar|Feedback).*?/, /###/);
     if (feedbackText) {
       result.feedback = feedbackText
         .split('\n')
         .map(line => line.trim())
         .filter(line => line.length > 0 && (line.startsWith('*') || line.startsWith('-')))
-        .map(line => line.replace(/^[\*\-]\s*/, '')); // Remove bullet markers
+        .map(line => line.replace(/^[\*\-]\s*/, ''));
     }
 
     // 3. Vocabulary
-    const vocabText = extractSection(/###.*?단어.*?/, /###/);
+    // Look for "Vocabulary"
+    const vocabText = extractSection(/###.*?Vocabulary.*?/, /###/);
     if (vocabText) {
        const rows = vocabText.split('\n').filter(row => row.trim().startsWith('|'));
        // Skip header row and separator row
@@ -52,7 +53,6 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
        result.vocabulary = dataRows.map(row => {
           const cells = row.split('|').map(c => c.trim()).filter(c => c);
           if (cells.length >= 2) {
-             // Handle cases where No. might be omitted or included
              if (cells.length === 3) return { no: cells[0], word: cells[1], meaning: cells[2] };
              if (cells.length === 2) return { no: '-', word: cells[0], meaning: cells[1] };
           }
@@ -61,28 +61,26 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
     }
 
     // 4. Key Sentence
+    // Look for "Key Sentence"
     const keyText = extractSection(/###.*?Key Sentence.*?/, /###/);
     if (keyText) {
         const lines = keyText.split('\n').filter(l => l.trim());
-        // Simple extraction based on line order
         let english = '';
         let korean = '';
         let tip = '';
 
         lines.forEach(line => {
-            const cleanLine = line.replace(/^>\s*/, '').trim(); // Remove blockquote marker
+            const cleanLine = line.replace(/^>\s*/, '').trim(); 
             if (cleanLine.startsWith('**') && cleanLine.endsWith('**')) {
-                 // Likely the English sentence usually bolded
                  english = cleanLine.replace(/\*\*/g, '').replace(/"/g, '');
             } else if (cleanLine.startsWith('"') && cleanLine.endsWith('"')) {
                  english = cleanLine.replace(/"/g, '');
             } else if (cleanLine.startsWith('*')) {
                  tip = cleanLine.replace(/^\*\s*/, '').replace(/\*\*/g, '');
-            } else if (!english) {
-                 // If we haven't found english yet, this might be it
+            } else if (!english && cleanLine.match(/^[A-Za-z]/)) {
+                 // Heuristic: if it starts with English letter and we don't have english yet
                  english = cleanLine.replace(/\*\*/g, '').replace(/"/g, '');
             } else {
-                 // Otherwise it's likely the Korean translation
                  korean = cleanLine;
             }
         });
