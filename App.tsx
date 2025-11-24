@@ -72,7 +72,7 @@ const DiaryApp: React.FC = () => {
     };
 
     loadDiary();
-  }, [date, user]);
+  }, [date, user?.id]);
 
   const handleAnalyze = async () => {
     if (!inputText.trim()) return;
