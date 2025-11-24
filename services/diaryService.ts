@@ -43,5 +43,15 @@ export const diaryService = {
 
     if (error) throw error;
     return data as DiaryEntry;
+  },
+
+  async getDiaryList() {
+    const { data, error } = await supabase
+      .from('diaries')
+      .select('id, date, title')
+      .order('date', { ascending: false });
+
+    if (error) throw error;
+    return data as Pick<DiaryEntry, 'id' | 'date' | 'title'>[];
   }
 };

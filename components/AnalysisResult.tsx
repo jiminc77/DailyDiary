@@ -102,7 +102,11 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
         .filter(p => p.length > 0);
 
     // Format: bullet point per paragraph
-    const formattedBody = paragraphs.map(p => `- ${p}`).join('\n');
+    let formattedBody = paragraphs.map(p => `- ${p}`).join('\n');
+    
+    // Add link to current diary
+    const currentUrl = window.location.href;
+    formattedBody += `\n- [Link to Diary](${currentUrl})`;
     
     // Only copy the body, no link
     navigator.clipboard.writeText(formattedBody).then(() => {
