@@ -14,7 +14,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
     return parseAnalysisResult(rawMarkdown);
   }, [rawMarkdown]);
 
-  const handleCopyForNotion = () => {
+    const handleCopyForJournal = () => {
     if (!parsedData.nativeVersion) return;
 
     // Split by paragraphs (double newlines or just newlines if they look like paragraphs)
@@ -25,7 +25,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
         .filter(p => p.length > 0);
 
     // Format: bullet point per paragraph
-    let formattedBody = paragraphs.map(p => `- ${p}`).join('\n');
+    let formattedBody = paragraphs.join('\n');
     
     // Add link to current diary
     const currentUrl = window.location.href;
@@ -61,7 +61,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
                 Native Version
             </h3>
             <button 
-                onClick={handleCopyForNotion}
+                      onClick={handleCopyForJournal}
                 className="text-sm font-medium text-slate-400 hover:text-[#396A84] dark:hover:text-[#5DA8C9] transition-colors flex items-center gap-1.5"
             >
                 {copyStatus === 'copied' ? (
@@ -71,7 +71,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ rawMarkdown }) => {
                     </span>
                 ) : (
                     <>
-                        <span>Copy for Notion</span>
+                                  <span>Copy for Journal</span>
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                     </>
                 )}
