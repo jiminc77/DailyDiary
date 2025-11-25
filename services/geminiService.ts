@@ -24,10 +24,8 @@ Please output the response strictly in the following Markdown structure:
 > (Insert the fully corrected, natural English diary here)
 
 ### Grammar & Feedback
-*   **Original text** → **Corrected text**
+*   **[Original Text]** → **[Corrected Text]**
     *   (Explanation in Korean: Why is this better? What is the grammar rule or nuance?)
-*   **Original text** → **Corrected text**
-    *   (Explanation in Korean...)
 *   ... (List ALL necessary corrections)
 
 ### Vocabulary
@@ -47,7 +45,7 @@ Please output the response strictly in the following Markdown structure:
 
 # Constraints
 - **Strictly No Prefixes**: Do NOT add prefixes like "(Korean):", "Explanation:", or "Reason:" before the explanation. Just write the Korean text directly.
-- **No Meta-Text**: Do NOT output the placeholder text like "[Original Phrase]" or "[Better/Corrected Phrase]". Only output the actual content.
+- **No Meta-Text**: Do NOT output the placeholder text like "[Original Text]" or "[Corrected Text]". Do NOT output any header like "Original text -> Corrected text". Only output the actual content.
 - **Consistency**: The "Native Version" and "Grammar & Feedback" must be perfectly consistent.
 - **Thoroughness**: Do not skip errors to save space. Be comprehensive.
 - All explanations must be in **Korean**.
